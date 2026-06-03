@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const api = axios.create({ baseURL: 'https://navikas-production.up.railway.app' })
+const BASE_URL = 'https://navikas-production.up.railway.app'
+
+const api = axios.create({ baseURL: BASE_URL })
 
 api.interceptors.request.use(cfg => {
   const token = localStorage.getItem('fintrack_token')
@@ -11,15 +13,14 @@ api.interceptors.request.use(cfg => {
 export const authAPI = {
   register:    d  => api.post('/api/auth/register', d),
   login: d => {
-    
     const form = new URLSearchParams()
-    form.append('username', d.email)   
+    form.append('username', d.email)
     form.append('password', d.password)
     return api.post('/api/auth/login', form, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     })
   },
-  loginGoogle: d  => api.post('/api/auth/google', d), 
+  loginGoogle: d  => api.post('/api/auth/google', d),
   getMe:       () => api.get('/api/auth/me'),
   updateMe:    d  => api.put('/api/auth/me', d),
 }
