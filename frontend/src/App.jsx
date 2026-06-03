@@ -1541,29 +1541,29 @@ function AnimatedLineChart({cumulative, daysInMonth, totalE, nowDate, dailySpend
         }}
       >
         <defs>
-          {/* Area gradient */}
+          
           <linearGradient id={`ag-${id}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%"   stopColor="var(--accent)" stopOpacity="0.22"/>
             <stop offset="50%"  stopColor="var(--accent)" stopOpacity="0.08"/>
             <stop offset="100%" stopColor="var(--accent)" stopOpacity="0"/>
           </linearGradient>
-          {/* Line gradient left→right */}
+          
           <linearGradient id={`lg-${id}`} x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%"   stopColor="var(--accent)" stopOpacity="0.4"/>
             <stop offset="100%" stopColor="var(--accent)" stopOpacity="1"/>
           </linearGradient>
-          {/* Clip */}
+          
           <clipPath id={`cp-${id}`}>
             <rect x={padL} y={0} width={plotW} height={H+padBot}/>
           </clipPath>
-          {/* Glow filter for endpoint */}
+          
           <filter id={`gf-${id}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="3" result="blur"/>
             <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
 
-        {/* Grid lines */}
+        
         {gridValues.map((v,i)=>{
           const gy = yOf(maxCum*v);
           return(
@@ -1581,14 +1581,14 @@ function AnimatedLineChart({cumulative, daysInMonth, totalE, nowDate, dailySpend
           );
         })}
 
-        {/* Area fill */}
+        
         {areaPath&&(
           <path d={areaPath} fill={`url(#ag-${id})`}
             clipPath={`url(#cp-${id})`}
             style={{animation:"fadeArea .9s ease .3s both"}}/>
         )}
 
-        {/* Main line — animated draw */}
+        
         {linePath&&(
           <path
             d={linePath}
@@ -1604,7 +1604,7 @@ function AnimatedLineChart({cumulative, daysInMonth, totalE, nowDate, dailySpend
           />
         )}
 
-        {/* Transaction dots — days with actual spending */}
+        
         {txnDays.map(i=>{
           if(i >= cumulative.length) return null;
           const cx=xOf(i), cy=yOf(cumulative[i]);
@@ -1617,7 +1617,7 @@ function AnimatedLineChart({cumulative, daysInMonth, totalE, nowDate, dailySpend
           );
         })}
 
-        {/* Hover crosshair & tooltip */}
+        
         {hovered!==null && hovered < cumulative.length && (()=>{
           const cx = xOf(hovered);
           const cy = yOf(cumulative[hovered]);
@@ -1630,17 +1630,17 @@ function AnimatedLineChart({cumulative, daysInMonth, totalE, nowDate, dailySpend
 
           return(
             <g>
-              {/* Vertical line */}
+              
               <line x1={cx} y1={padTop} x2={cx} y2={padTop+plotH}
                 stroke="var(--accent)" strokeWidth="1" strokeDasharray="3,3" opacity="0.4"/>
-              {/* Horizontal line */}
+              
               <line x1={padL} y1={cy} x2={W-padR} y2={cy}
                 stroke="var(--accent)" strokeWidth="0.5" strokeDasharray="3,5" opacity="0.25"/>
-              {/* Dot */}
+              
               <circle cx={cx} cy={cy} r="12" fill="var(--accent)" fillOpacity="0.08"/>
               <circle cx={cx} cy={cy} r="6"  fill="var(--accent)" fillOpacity="0.15"/>
               <circle cx={cx} cy={cy} r="3.5" fill="var(--accent)" stroke="var(--bg)" strokeWidth="2" filter={`url(#gf-${id})`}/>
-              {/* Tooltip */}
+              
               <rect x={tipX} y={tipY} width={tipW} height={tipH}
                 rx="6" fill="var(--surface2)"
                 stroke="var(--border2)" strokeWidth="1"
@@ -1657,7 +1657,6 @@ function AnimatedLineChart({cumulative, daysInMonth, totalE, nowDate, dailySpend
           );
         })()}
 
-        {/* Endpoint glow dot */}
         {cumulative.length>0&&hovered===null&&(()=>{
           const i=cumulative.length-1;
           const cx=xOf(i), cy=yOf(cumulative[i]);
@@ -1674,7 +1673,6 @@ function AnimatedLineChart({cumulative, daysInMonth, totalE, nowDate, dailySpend
           );
         })()}
 
-        {/* X-axis date labels */}
         {[1,8,16,23,daysInMonth].map(d=>(
           <text key={d} x={xOf(d-1)} y={H+padBot-4} fontSize="8" fill="var(--text3)"
             textAnchor="middle" fontFamily="'DM Mono',monospace">{d}</text>
@@ -2105,7 +2103,6 @@ function Analytics({txns, prediction, user, toast}){
   );
 }
 
-/* ─── DNA Score Ring SVG ──────────────────────────── */
 function DNARing({score, size=120, strokeWidth=7}){
   const r = (size-strokeWidth*2)/2;
   const circ = 2*Math.PI*r;
@@ -2126,7 +2123,6 @@ function DNARing({score, size=120, strokeWidth=7}){
   );
 }
 
-/* ─── Mini Bar Chart ──────────────────────────────── */
 function MiniBarChart({data, labels, color="var(--accent)", height=56}){
   const max = Math.max(...data,1);
   return(
@@ -2150,7 +2146,6 @@ function MiniBarChart({data, labels, color="var(--accent)", height=56}){
   );
 }
 
-/* ─── Dim Score Card ──────────────────────────────── */
 function DimCard({label, value, icon, max=25, tip, formula}){
   const [open, setOpen] = React.useState(false);
   const pct   = Math.round(value/max*100);
@@ -2331,7 +2326,6 @@ function FinancialDNA({txns,user,prediction}){
   return(
     <div className="page fi-a">
 
-      {/* ── Header ── */}
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:24,flexWrap:"wrap",gap:12}}>
         <div>
           <div style={{fontSize:26,fontWeight:700,letterSpacing:-1,marginBottom:3}}>Financial DNA</div>
@@ -2349,7 +2343,7 @@ function FinancialDNA({txns,user,prediction}){
         </div>
       </div>
 
-      {/* ── Score Hero ── */}
+
       <div style={{background:"var(--card-grad)",border:"1px solid var(--border2)",borderRadius:20,padding:"24px 28px",marginBottom:20,display:"flex",alignItems:"center",gap:28,flexWrap:"wrap",position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",top:"-50%",right:"-5%",width:280,height:280,borderRadius:"50%",background:"radial-gradient(circle,var(--glow) 0%,transparent 65%)",pointerEvents:"none"}}/>
         <DNARing score={dna} size={120}/>
@@ -2372,7 +2366,6 @@ function FinancialDNA({txns,user,prediction}){
         </div>
       </div>
 
-      {/* ── Tab Navigation ── */}
       <div style={{display:"flex",gap:4,background:"var(--glass2)",border:"1px solid var(--border)",borderRadius:12,padding:4,marginBottom:20}}>
         {TABS.map(t=>(
           <button key={t.id} onClick={()=>setActiveTab(t.id)}
@@ -2389,7 +2382,7 @@ function FinancialDNA({txns,user,prediction}){
         ))}
       </div>
 
-      {/* ══ TAB: RINGKASAN ══ */}
+
       {activeTab==="overview"&&(
         <div className="two-col">
           <div>
@@ -2398,7 +2391,6 @@ function FinancialDNA({txns,user,prediction}){
                 <span>4 Dimensi DNA Score</span>
                 <span style={{fontSize:11,color:"var(--text3)",fontWeight:400,textTransform:"none",letterSpacing:0}}>Tap untuk detail & cara naik</span>
               </div>
-              {/* Progress total menuju 100 */}
               <div style={{background:"var(--glass2)",border:"1px solid var(--border)",borderRadius:10,padding:"12px 14px",marginBottom:12}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
                   <span style={{fontSize:11,color:"var(--text2)",fontWeight:500}}>Total Skor DNA</span>
@@ -2414,7 +2406,7 @@ function FinancialDNA({txns,user,prediction}){
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
                 {dims.map(d=><DimCard key={d.n} label={d.n} value={d.v} icon={d.icon} tip={d.tip} formula={d.formula}/>)}
               </div>
-              {/* Kekurangan poin */}
+
               {(()=>{
                 const missing = dims.filter(d=>d.v<25);
                 if(missing.length===0) return(
@@ -2492,11 +2484,9 @@ function FinancialDNA({txns,user,prediction}){
         </div>
       )}
 
-      {/* ══ TAB: PERILAKU ══ */}
       {activeTab==="behavior"&&(
         <div className="two-col">
           <div>
-            {/* Belanja Per Hari */}
             <div className="card" style={{marginBottom:16}}>
               <div className="sec-t">
                 <span>Belanja Per Hari</span>
@@ -2505,7 +2495,6 @@ function FinancialDNA({txns,user,prediction}){
                 </span>
               </div>
               <MiniBarChart data={dayMap2} labels={DAY_NAMES2} color="var(--red)" height={70}/>
-              {/* Insight hari terboros */}
               {peakDay2&&dayMap2[DAY_NAMES2.indexOf(peakDay2)]>0&&(
                 <div style={{marginTop:10,padding:"8px 12px",borderRadius:8,background:"var(--glass)",border:"1px solid var(--border)",fontSize:12,color:"var(--text2)",display:"flex",alignItems:"center",gap:8}}>
                   <Icon name="trending" size={12} color="var(--amber)"/>
@@ -2514,7 +2503,6 @@ function FinancialDNA({txns,user,prediction}){
               )}
             </div>
 
-            {/* Heatmap Jam Belanja - 24 jam penuh */}
             <div className="card" style={{marginBottom:16}}>
               <div className="sec-t">
                 <span>Jam Belanja</span>
@@ -2539,7 +2527,6 @@ function FinancialDNA({txns,user,prediction}){
               <div style={{display:"flex",justifyContent:"space-between",marginTop:6,fontSize:8.5,color:"var(--text3)",fontFamily:"'DM Mono',monospace"}}>
                 <span>00</span><span>03</span><span>06</span><span>09</span><span>12</span><span>15</span><span>18</span><span>21</span><span>23</span>
               </div>
-              {/* Legenda warna */}
               <div style={{display:"flex",gap:12,marginTop:8,fontSize:10,color:"var(--text3)",alignItems:"center"}}>
                 {[["var(--red)","Tinggi"],["var(--amber)","Sedang"],["var(--green)","Rendah"]].map(([c,l])=>(
                   <div key={l} style={{display:"flex",alignItems:"center",gap:4}}>
@@ -2563,7 +2550,6 @@ function FinancialDNA({txns,user,prediction}){
               )}
             </div>
 
-            {/* Breakdown Kategori */}
             <div className="card">
               <div className="sec-t">
                 <span>Breakdown Kategori</span>
@@ -2599,7 +2585,6 @@ function FinancialDNA({txns,user,prediction}){
           </div>
 
           <div>
-            {/* Streak */}
             <div className="card" style={{marginBottom:14}}>
               <div className="sec-t"><span>Streak Bebas Impulsif</span></div>
               <div style={{display:"flex",alignItems:"center",gap:18,padding:"12px 0"}}>
@@ -2615,7 +2600,7 @@ function FinancialDNA({txns,user,prediction}){
                   {streak===0&&imps.length===0&&<div style={{fontSize:11,color:"var(--green)",marginTop:4}}>Belum ada data impulsif 🎉</div>}
                 </div>
               </div>
-              {/* Progress ke milestone berikutnya */}
+
               {(()=>{
                 const milestones=[3,7,14,30];
                 const next=milestones.find(m=>streak<m)||null;
@@ -2636,7 +2621,6 @@ function FinancialDNA({txns,user,prediction}){
               })()}
             </div>
 
-            {/* Transaksi Impulsif */}
             <div className="card">
               <div className="sec-t">
                 <span>Transaksi Impulsif</span>
@@ -2679,7 +2663,6 @@ function FinancialDNA({txns,user,prediction}){
         </div>
       )}
 
-      {/* ══ TAB: TARGET ══ */}
       {activeTab==="goals"&&(
         <div className="two-col">
           <div>
@@ -2743,7 +2726,6 @@ function FinancialDNA({txns,user,prediction}){
         </div>
       )}
 
-      {/* ══ TAB: SIMULATOR ══ */}
       {activeTab==="simulator"&&(
         <div className="two-col">
           <div>
@@ -3042,7 +3024,6 @@ Aku udah lihat profil keuanganmu. Kamu punya **${imps.length} transaksi impulsif
   return(
     <div className="page fi-a" style={{display:"flex",flexDirection:"column",flex:1,overflow:"hidden",padding:0,margin:0,minHeight:0}}>
 
-      {/* ── Header ── */}
       <div className="ph" style={{marginBottom:0,flexShrink:0,padding:"14px 20px",borderBottom:"1px solid var(--border)"}}>
         <div style={{display:"flex",alignItems:"center",gap:14}}>
           <button onClick={()=>setShowHistory(p=>!p)} style={{width:36,height:36,borderRadius:10,background:"var(--glass2)",border:"1px solid var(--border)",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",flexShrink:0}}>
@@ -3084,13 +3065,11 @@ Aku udah lihat profil keuanganmu. Kamu punya **${imps.length} transaksi impulsif
         </div>
       </div>
 
-      {/* ── Layout utama ── */}
       <div style={{display:"flex",flex:1,overflow:"hidden",position:"relative"}}>
 
-        {/* ── Sidebar History ── */}
         {showHistory&&(
           <>
-            {/* Backdrop — hanya di mobile, dikontrol React bukan CSS */}
+
             {isMobile&&(
               <div onClick={()=>setShowHistory(false)} style={{
                 position:"fixed",inset:0,zIndex:55,
@@ -3099,7 +3078,6 @@ Aku udah lihat profil keuanganmu. Kamu punya **${imps.length} transaksi impulsif
               }}/>
             )}
             <div style={{
-              // Mobile: overlay fixed, Desktop: inline di flex row
               ...(isMobile ? {
                 position:"fixed",top:0,left:0,bottom:0,zIndex:60,
                 width:"82vw",maxWidth:"300px",
@@ -3157,7 +3135,6 @@ Aku udah lihat profil keuanganmu. Kamu punya **${imps.length} transaksi impulsif
           </>
         )}
 
-        {/* ── Area Chat ── */}
         <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",minWidth:0}}>
           <div className="finbot-msgs" style={{padding:"16px 20px"}}>
             {msgs.map((m,i)=>(
@@ -3197,7 +3174,6 @@ Aku udah lihat profil keuanganmu. Kamu punya **${imps.length} transaksi impulsif
             <div ref={endRef}/>
           </div>
 
-          {/* ── Saran Pertanyaan ── */}
           <div className="finbot-suggestions-wrap" style={{padding:"8px 20px 0"}}>
             <div className="finbot-sug-label">Saran Pertanyaan:</div>
             <div ref={sugRef} className="finbot-suggestions"
@@ -3215,7 +3191,6 @@ Aku udah lihat profil keuanganmu. Kamu punya **${imps.length} transaksi impulsif
             </div>
           </div>
 
-          {/* ── Input ── */}
           <div className="finbot-input-row" style={{flexShrink:0,paddingBottom:20,padding:"10px 20px 20px"}}>
             <input
               ref={inputRef}
@@ -3489,9 +3464,7 @@ function Settings({toast,isDark,setIsDark,user,onUpdateProfile,txns,prediction,o
   );
 }
 
-/* ═══════════════════════════════════════════════════
-   ROOT APP
-═══════════════════════════════════════════════════ */
+
 export default function App(){
   const [view,     setView]     = useState("landing");
   const [page,     setPage]     = useState("dashboard");

@@ -2,7 +2,6 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 import uuid
 
-# ── User ─────────────────────────────────────────────────────────────────────
 
 class UserCreate(BaseModel):
     name: str
@@ -18,7 +17,6 @@ class UserOut(BaseModel):
     class Config:
         from_attributes = True
 
-# ── Token ─────────────────────────────────────────────────────────────────────
 
 class Token(BaseModel):
     access_token: str

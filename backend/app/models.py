@@ -9,9 +9,9 @@ class User(Base):
     id             = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name           = Column(String(100), nullable=False)
     email          = Column(String(255), unique=True, nullable=False, index=True)
-    password       = Column(String(255), nullable=True)          # nullable → bisa login Google tanpa password
-    google_id      = Column(String(255), nullable=True, unique=True, index=True)  # Google OAuth ID
-    avatar_url     = Column(String(512), nullable=True)          # foto profil dari Google
+    password       = Column(String(255), nullable=True)         
+    google_id      = Column(String(255), nullable=True, unique=True, index=True) 
+    avatar_url     = Column(String(512), nullable=True)         
     is_premium     = Column(Boolean, default=False)
     budget         = Column(Float, default=0)
     gemini_api_key = Column(String(255), nullable=True)

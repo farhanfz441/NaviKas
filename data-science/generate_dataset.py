@@ -31,12 +31,10 @@ for uid in user_ids:
     start = datetime(2025, 1, 1)
     for month in range(10):
         base = start + timedelta(days=month*30)
-        # Income
         records.append({"user_id":uid,"date":(base+timedelta(days=1)).strftime("%Y-%m-%d"),
                         "time":"10:00","category":"salary","type":"income",
                         "amount":np.random.choice([4500000,5000000,6000000,7500000,8000000]),
                         "description":"Gaji bulanan","is_impulsive":False})
-        # Expenses (15-25 per month)
         n_txn = np.random.randint(15, 26)
         for _ in range(n_txn):
             cat  = np.random.choice(CATEGORIES[:-1], p=[.30,.15,.10,.20,.15,.05,.05])
@@ -63,7 +61,6 @@ df = pd.DataFrame(records).sort_values(["user_id","date","time"]).reset_index(dr
 df.to_csv("dataset/transactions_raw.csv", index=False)
 print(f"✅ Raw dataset: {len(df)} rows → dataset/transactions_raw.csv")
 
-# Clean version
 df_clean = df.copy()
 df_clean["amount"]  = df_clean["amount"].round(0)
 df_clean["date"]    = pd.to_datetime(df_clean["date"])

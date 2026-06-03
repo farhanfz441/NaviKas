@@ -6,10 +6,8 @@ FinTrack ML Module
 """
 from datetime import datetime, timedelta
 
-# Kategori yang sifatnya BULANAN — tidak diproyeksikan harian
 MONTHLY_CATEGORIES = {"housing", "kos", "rent", "bills", "subscription", "health", "kesehatan"}
 
-# Threshold fixed: pengeluaran >= Rp 300rb dianggap one-time (bukan harian rutin)
 ONETIME_FIXED_THRESHOLD = 300_000
 
 def is_impulsive(amount: float, category_id: str, date: datetime) -> bool:
@@ -61,23 +59,18 @@ def predict_balance(transactions: list, month: str, current_balance: float = 0.0
     expense_txns = [t for t in transactions if t["type"] == "expense"]
     expense      = sum(t["amount"] for t in expense_txns)
 
-    # One-time: >= Rp 300rb ATAU kategori bulanan
     def is_onetime(t):
         cat = str(t.get("category_id", "")).lower()
         return t["amount"] >= ONETIME_FIXED_THRESHOLD or cat in MONTHLY_CATEGORIES
 
     onetime_expense = sum(t["amount"] for t in expense_txns if is_onetime(t))
-    routine_expense = expense - onetime_expense  # hanya transaksi kecil < 300rb
+    routine_expense = expense - onetime_expense  
 
-    # Daily avg dari pengeluaran rutin kecil saja
     daily_avg = routine_expense / days_passed if routine_expense > 0 else 0
 
-    # Proyeksi sisa bulan — hanya dari routine (makan, transport, dll)
-    # Kalau data masih < 5 hari, gunakan 80% dari daily avg (konservatif)
     projection_factor = 0.80 if days_passed < 5 else 1.0
     projected = daily_avg * days_remaining * projection_factor
 
-    # Prediksi akhir bulan
     predicted = income - expense - projected
 
     risk = "high" if predicted < 500_000 else "medium" if predicted < 1_500_000 else "low"
@@ -102,18 +95,15 @@ def compute_dna_score(transactions: list, budget: float = 8_000_000) -> dict:
     impulse = [t for t in transactions if t.get("is_impulsive", False)]
     total_t = max(len([t for t in transactions if t["type"] == "expense"]), 1)
 
-    # D1 — Budget Consistency (0–25)
     if expense <= budget:
         d1 = 25.0
     else:
         over_ratio = (expense - budget) / max(budget, 1)
         d1 = max(0.0, 25.0 * (1 - over_ratio))
 
-    # D2 — Impulse Control (0–25)
     impulse_ratio = len(impulse) / max(total_t, 1)
     d2 = max(0.0, 25.0 * (1 - impulse_ratio * 4))
 
-    # D3 — Saving Habit (0–25)
     if income <= 0:
         d3 = 0.0
     else:
@@ -121,7 +111,6 @@ def compute_dna_score(transactions: list, budget: float = 8_000_000) -> dict:
         target_rate = 0.20
         d3 = min(25.0, 25.0 * (saving_rate / target_rate))
 
-    # D4 — Spending Plan / Diversifikasi (0–25)
     cat_exp = {}
     for t in transactions:
         if t["type"] == "expense":

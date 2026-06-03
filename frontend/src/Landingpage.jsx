@@ -699,13 +699,7 @@ import { useState, useEffect, useRef } from "react";
     );
   }
 
-  /* ═══════════════════════════════════════════════════════════
-    MAIN COMPONENT
-    Props:
-      onEnterDashboard() — navigasi ke auth / dashboard
-      user               — { name, email } | null
-      onLogout()         — logout & kembali ke landing
-  ═══════════════════════════════════════════════════════════ */
+
   export default function LandingPage({ onEnterDashboard, user, onLogout }) {
     const [scrolled,     setScrolled]     = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -781,28 +775,28 @@ import { useState, useEffect, useRef } from "react";
       <div className="lp">
         <style>{CSS_LANDING}</style>
 
-        {/* ══════════ NAVBAR ══════════ */}
+       
         <nav className={`lp-nav${scrolled ? " scrolled" : ""}`}>
           <div className="lp-nav-logo">
             <span>Navi</span><span>Kas</span>
           </div>
 
-          {/* Nav links — selalu tampil */}
+        
           <ul className="lp-nav-links">
             <li><a onClick={() => document.getElementById("lp-why")?.scrollIntoView({ behavior: "smooth" })}>Fitur</a></li>
             <li><a onClick={() => document.getElementById("lp-how")?.scrollIntoView({ behavior: "smooth" })}>Cara Kerja</a></li>
             <li><a onClick={() => document.getElementById("lp-testi")?.scrollIntoView({ behavior: "smooth" })}>Testimoni</a></li>
           </ul>
 
-          {/* ── Kondisional: belum login vs sudah login ── */}
+          
           {!isLoggedIn ? (
-            /* Belum login → tampilkan tombol Masuk & Daftar */
+            
             <div className="lp-nav-cta">
               <button className="lp-btn-outline" onClick={handleEnter}>Masuk</button>
               <button className="lp-btn-solid"   onClick={handleEnter}>Daftar</button>
             </div>
           ) : (
-            /* Sudah login → dropdown */
+            
             <div className="lp-nav-dropdown-wrap" ref={dropdownRef}>
               <div className="lp-nav-user-pill" onClick={() => setDropdownOpen(p => !p)}>
                 <div className="lp-nav-avatar">{userAva}</div>
@@ -841,7 +835,7 @@ import { useState, useEffect, useRef } from "react";
           )}
         </nav>
 
-        {/* ══════════ HERO ══════════ */}
+        
         <section className="lp-hero">
           <div className="lp-hero-bg"/>
           <div className="lp-hero-inner">
@@ -849,10 +843,10 @@ import { useState, useEffect, useRef } from "react";
 
               <h1 className="lp-hero-title">
                 {isLoggedIn ? (
-                  /* Heading personal saat sudah login */
+                  
                   <>Halo, <span className="lp-hero-title-grad">{firstName}!</span><br/>Dashboard<br/>menunggumu.</>
                 ) : (
-                  /* Heading default */
+                  
                   <>Kendalikan<br/><span className="lp-hero-title-grad">Keuanganmu</span><br/>Lebih Cerdas</>
                 )}
               </h1>
@@ -936,7 +930,7 @@ import { useState, useEffect, useRef } from "react";
 
         <Ticker/>
 
-        {/* STATS BAR */}
+       
         <div className="lp-stats">
           <div className="lp-stats-inner">
             {[
@@ -953,7 +947,7 @@ import { useState, useEffect, useRef } from "react";
           </div>
         </div>
 
-        {/* WHY */}
+        
         <section className="lp-why" id="lp-why" ref={whyRef}>
           <div className="lp-section-inner">
             <div className="lp-section-tag">Mengapa NaviKas</div>
@@ -977,7 +971,7 @@ import { useState, useEffect, useRef } from "react";
           </div>
         </section>
 
-        {/* HOW IT WORKS */}
+        
         <section className="lp-how" id="lp-how">
           <div className="lp-section-inner">
             <div className="lp-section-tag">Cara Kerja</div>
@@ -999,7 +993,7 @@ import { useState, useEffect, useRef } from "react";
           </div>
         </section>
 
-        {/* FEATURES */}
+        
         <section className="lp-features" id="lp-features" ref={featRef}>
           <div className="lp-section-inner">
             <div className="lp-section-tag">Fitur Unggulan</div>
@@ -1054,7 +1048,7 @@ import { useState, useEffect, useRef } from "react";
           </div>
         </section>
 
-        {/* TESTIMONIALS */}
+        
         <section className="lp-testi" id="lp-testi" ref={testiRef}>
           <div className="lp-section-inner">
             <div className="lp-section-tag">Testimoni</div>
@@ -1079,7 +1073,7 @@ import { useState, useEffect, useRef } from "react";
           </div>
         </section>
 
-        {/* CTA */}
+        
         <section className="lp-cta" id="lp-cta">
           <div className="lp-cta-inner">
             <h2 className="lp-cta-title">
@@ -1105,35 +1099,35 @@ import { useState, useEffect, useRef } from "react";
           </div>
         </section>
 
-        {/* FOOTER */}
+        
         <footer className="lp-footer">
           <div className="lp-footer-main">
-            {/* Brand */}
+            
             <div className="lp-footer-brand">
               <div className="lp-footer-logo"><span>Navi</span><span>Kas</span></div>
               <p className="lp-footer-tagline">
                 Asisten keuangan pribadi yang menggabungkan AI dan ilmu perilaku untuk membantu kamu hidup lebih cerdas secara finansial.
               </p>
               <div className="lp-footer-socials">
-                {/* Instagram */}
+                
                 <button className="lp-footer-social-btn" title="Instagram">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/>
                   </svg>
                 </button>
-                {/* Twitter/X */}
+                
                 <button className="lp-footer-social-btn" title="X (Twitter)">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                   </svg>
                 </button>
-                {/* Facebook */}
+                
                 <button className="lp-footer-social-btn" title="Facebook">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                   </svg>
                 </button>
-                {/* LinkedIn */}
+                
                 <button className="lp-footer-social-btn" title="LinkedIn">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
@@ -1142,7 +1136,6 @@ import { useState, useEffect, useRef } from "react";
               </div>
             </div>
 
-            {/* Navigasi */}
             <div className="lp-footer-col">
               <div className="lp-footer-col-title">Navigasi</div>
               <ul className="lp-footer-col-links">
@@ -1154,7 +1147,6 @@ import { useState, useEffect, useRef } from "react";
               </ul>
             </div>
 
-            {/* Produk */}
             <div className="lp-footer-col">
               <div className="lp-footer-col-title">Produk</div>
               <ul className="lp-footer-col-links">
@@ -1166,7 +1158,6 @@ import { useState, useEffect, useRef } from "react";
               </ul>
             </div>
 
-            {/* Legalitas */}
             <div className="lp-footer-col">
               <div className="lp-footer-col-title">Legalitas</div>
               <ul className="lp-footer-col-links">
@@ -1178,7 +1169,6 @@ import { useState, useEffect, useRef } from "react";
             </div>
           </div>
 
-          {/* Bottom bar */}
           <div className="lp-footer-bottom">
             <div className="lp-footer-copy">© 2026 NaviKas Indonesia · Dicoding Capstone · Seluruh hak cipta dilindungi.</div>
             <div className="lp-footer-tech">

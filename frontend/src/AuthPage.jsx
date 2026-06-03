@@ -2,15 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useStore } from './store/useStore';
 import { authAPI } from './services/api';
 
-/* ═══════════════════════════════════════════════════════════════
-   FINTRACK  ·  Auth Page (Login & Register)
-   Props:
-     onAuthSuccess(token, userData) — dipanggil setelah login/register berhasil
-     onBack()                       — kembali ke landing page
-   Fixes:
-     - Google login pakai renderButton (bukan prompt popup)
-     - Responsive: desktop / tablet / mobile semua support
-═══════════════════════════════════════════════════════════════ */
 
 const CSS_AUTH = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap');
@@ -894,7 +885,6 @@ export default function AuthPage({ onAuthSuccess, onBack }) {
       <div className="auth-overlay" />
       <div className="auth-layout">
 
-        {/* ── LEFT ── */}
         <div className="auth-left">
           <div className="auth-topbar">
             <div className="auth-logo" onClick={onBack}>
@@ -1008,7 +998,6 @@ export default function AuthPage({ onAuthSuccess, onBack }) {
                 <span className="auth-divider-line" />
               </div>
 
-              {/* ── Google Sign-In Button (renderButton — works on all devices) ── */}
               <div className="auth-google-wrap">
                 {googleLoading ? (
                   <button className="auth-google-btn" disabled>
@@ -1039,7 +1028,7 @@ export default function AuthPage({ onAuthSuccess, onBack }) {
           <div className="auth-footer">© 2026 NaviKas · Dicoding Capstone</div>
         </div>
 
-        {/* ── RIGHT ── */}
+        
         <div className="auth-right">
           <div className="auth-live-stats">
             <div className="auth-live-header">
