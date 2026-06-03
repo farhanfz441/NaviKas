@@ -2965,7 +2965,7 @@ Aku udah lihat profil keuanganmu. Kamu punya **${imps.length} transaksi impulsif
 
   useEffect(()=>{endRef.current?.scrollIntoView({behavior:"smooth"})},[msgs]);
 
-  const GEMINI_BACKEND_URL = `${import.meta.env.VITE_API_URL}/api/finbot`;
+  const GEMINI_BACKEND_URL = "https://navikas-production.up.railway.app/api/finbot";
 
   const send = async(text) => {
     const q = (text||input).trim();

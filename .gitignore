@@ -1,7 +1,12 @@
 # Environment files
 .env
+.env.*
 **/.env
 **/.env.*
+
+# Allow example environment file
+!.env.example
+!**/.env.example
 
 # Python virtual environment
 .venv/
