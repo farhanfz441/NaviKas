@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://navikas-production.up.railway.app'
-
-const api = axios.create({ baseURL: BASE_URL })
+const api = axios.create({ baseURL: 'https://navikas-production.up.railway.app' })
 
 api.interceptors.request.use(cfg => {
   const token = localStorage.getItem('fintrack_token')
