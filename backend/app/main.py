@@ -9,7 +9,6 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="FinTrack API", version="1.0.0", description="Financial Intelligence API")
 
 frontend_url = os.getenv("FRONTEND_URL", "")
-
 origins = ["http://localhost:5173"]
 if frontend_url:
     origins.append(frontend_url)
