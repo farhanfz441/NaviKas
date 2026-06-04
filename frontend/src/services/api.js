@@ -23,8 +23,8 @@ export const authAPI = {
   updateMe:    d  => api.put('/api/auth/me', d),
 }
 export const transactionAPI = {
-  getAll: month => api.get(`/api/transactions?month=${month}`),
-  create: d     => api.post('/api/transactions', d),
+  getAll: month => api.get(`/api/transactions/?month=${month}`),
+  create: d     => api.post('/api/transactions/', d),
   update: (id,d)=> api.put(`/api/transactions/${id}`, d),
   remove: id    => api.delete(`/api/transactions/${id}`),
 }
