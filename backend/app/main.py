@@ -7,7 +7,7 @@ from app.routers import auth, transactions, predictions, finbot_routers as finbo
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="FinTrack API", version="1.0.0", description="Financial Intelligence API")
+app = FastAPI(title="NaviKas API", version="1.0.0", description="NaviKas - Financial Intelligence API")
 
 frontend_url = os.getenv("FRONTEND_URL", "")
 origins = [
