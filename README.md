@@ -3,7 +3,7 @@
 > **Navigasi Kas** — Kelola keuanganmu lebih cerdas dengan analitik perilaku, prediksi AI, dan chatbot finansial personal.
 
 🌐 **Live App:** [navikasproject.vercel.app]([https://navikasproject.vercel.app](https://navi-kas.vercel.app/)) 
-📖 **API Docs:** [navikasproject.vercel.app/api/docs](https://navikasproject.vercel.app/api/docs) 
+📖 **API Docs:** [navikasproject.vercel.app/api/docs]([https://navikasproject.vercel.app/api/docs](https://navikas-production.up.railway.app/docs)) 
 
 ---
 
